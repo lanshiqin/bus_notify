@@ -4,6 +4,7 @@ import (
 	"bus_notify/src/bus"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -92,6 +93,9 @@ func main() {
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/station_info", stationInfoHandler)
 	http.HandleFunc("/bus_info", busInfoHandler)
-	fmt.Println("Bus Notify ListenAndServe http://localhost:8888")
-	_ = http.ListenAndServe(":8888", nil)
+	fmt.Println("Bus Notify Server Start http://localhost:8888")
+	err := http.ListenAndServe(":8888", nil)
+	if err != nil {
+		log.Fatal("Bus Notify Server failed to start")
+	}
 }
