@@ -30,7 +30,7 @@ type ApiResponse struct {
 	Data    interface{} `json:"data"`
 }
 
-// 查询站点信息处理
+// 查询站点数据处理
 func stationInfoHandler(w http.ResponseWriter, r *http.Request) {
 	_ = r.ParseForm()
 	w.Header().Set("Content-type", "application/json;charset=UTF-8")
@@ -46,7 +46,7 @@ func stationInfoHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("入参: ", cityName[0], routeName[0], direction[0])
 	stationInfo := bus.GetRouteAllStationInfoToSave(url, cityName[0], routeName[0], direction[0])
 
-	station, _ := json.Marshal(stationInfo)
+	station, _ := json.Marshal(&ApiResponse{Code: 2000, Message: "公交站点", Data: stationInfo})
 
 	_, _ = w.Write([]byte(station))
 
@@ -83,7 +83,7 @@ func busInfoHandler(w http.ResponseWriter, r *http.Request) {
 		objInfo = bus.GetRouteBusObjByIndex(url, cityName[0], routeName[0], direction[0], objIndex)
 	}
 
-	station, _ := json.Marshal(objInfo)
+	station, _ := json.Marshal(&ApiResponse{Code: 2000, Message: "公交信息", Data: objInfo})
 	_, _ = w.Write([]byte(station))
 
 }
