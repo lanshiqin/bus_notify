@@ -34,7 +34,7 @@ type StationInfo struct {
 
 const StationInfoCmd = "103" // 查询站点信息操作码
 
-// 获取路线上所有站点信息
+// 获取路线上所有公交站点信息(请求接口地址，城市名称，路线名称，方向)
 func GetRouteAllStationInfo(requestURL string, cityName string, routeName string, direction string) *StationInfo {
 	response, _ := http.Post(requestURL, "application/x-www-form-urlencoded", strings.NewReader(
 		"CMD="+StationInfoCmd+
@@ -45,7 +45,7 @@ func GetRouteAllStationInfo(requestURL string, cityName string, routeName string
 	body, _ := ioutil.ReadAll(response.Body)
 	var resp StationInfo
 	_ = json.Unmarshal([]byte(string(body)), &resp)
-	log.Println("站点信息:" + string(body))
+	log.Println("公交站点信息:" + string(body))
 	return &resp
 }
 

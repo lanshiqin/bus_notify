@@ -62,7 +62,7 @@ type ObjInfo struct {
 const busInfoCmd = "104"          // 查询站点信息操作码
 const IntMax = int(^uint(0) >> 1) // 无符号整型最大值
 
-// 获取指定路线的实时公交信息
+// 获取指定路线的公交实时信息
 func GetRouteBusInfo(requestURL string, cityName string, routeName string, direction string) *Info {
 	response, _ := http.Post(requestURL, "application/x-www-form-urlencoded", strings.NewReader(
 		"CMD="+busInfoCmd+
@@ -73,7 +73,7 @@ func GetRouteBusInfo(requestURL string, cityName string, routeName string, direc
 	body, _ := ioutil.ReadAll(response.Body)
 	var resp Info
 	_ = json.Unmarshal([]byte(string(body)), &resp)
-	log.Println("实时公交信息：" + string(body))
+	log.Println("公交实时信息：" + string(body))
 	return &resp
 }
 

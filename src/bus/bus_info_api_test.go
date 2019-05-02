@@ -12,7 +12,12 @@ func TestGetRouteBusInfo(t *testing.T) {
 	busInfo := GetRouteBusInfo(url, cityName, routeName, direction)
 
 	for i := 0; i < len(busInfo.List); i++ {
-		t.Log(busInfo.List[i].Index, busInfo.List[i].StationName, busInfo.List[i].StatusType)
+		switch busInfo.List[i].StatusType {
+		case "0":
+			t.Logf("公交站索引:%3d  %s[即将到站]", busInfo.List[i].Index, busInfo.List[i].StationName)
+		case "2":
+			t.Logf("公交站索引:%3d  %s[已经到站]", busInfo.List[i].Index, busInfo.List[i].StationName)
+		}
 	}
 }
 
